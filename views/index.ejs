@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    .home {
+    text-align: center; /* Mengatur agar konten di dalam div berada di tengah secara horizontal */
+    }
+    .home a {
+    border: 2px solid black;
+    display: inline-block;
+    width: 150px;
+    margin: 15px 30px;
+    padding: 5px 0;
+    text-decoration:none ;
+    color: black;
+    background-color: lightgrey;
+    /* Contoh warna hijau */
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    }
+  </style>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center">CRUD DATA MAHASISWA EXPRESS-JS</h2>
+      <div class="row mt-3">
+        <!-- Alert -->
+        <div class="col-auto col-lg-12 mt-2">
+          <% if(alert.message != "") { %>
+          <div class="alert alert-<%= alert.status %>" role="alert">
+            <%= alert.message %>
+          </div>
+          <% } %>
+        </div>
+        <!-- Table -->
+        <div class="col-auto col-lg-12 mt-2"><%- include('table.ejs') %></div>
+      </div>
+    </div>
+
+    <!-- Buat tombol ke halaman home -->
+    <div class="home">
+      <a href="/home">Tampilan menu</a>
+    </div>
+
+    <!-- Add Modal -->
+    <%- include('add_modal.ejs') %>
+    <!-- Edit Modal -->
+    <%- include('edit_modal.ejs') %>
+    <!-- JS -->
+    <%- include('js.ejs') %>
+    <script>
+      /* Menampilkan modal dan memanggil tag table yang memiliki id dataTable
+         class button-update di class tag a Edit di file table.ejs */
+      $("#dataTable").on("click", ".button-update", function () {
+        // membuat variabel untuk mengambil data-id, data-name, dstnya yang sudah dibuat di file table.ejs di bagian tag a edit
+        let id = $(this).data("id");
+        let nama = $(this).data("nama");
+        let bahan = $(this).data("bahan");
+        let warna = $(this).data("warna");
+        let foto = $(this).data("foto");
+        let harga = $(this).data("harga");
+        let deskripsi = $(this).data("deskripsi");
+        /*
+         * memanggil id edit-modal yang ada di file edit_modal.ejs
+         * dan membuat fungsi dari method
+         */
+        $("#edit-modal").modal("show");
+        /* Lalu Mengirim  id, name, dstnya melalu class disamping form-control tag input
+           dan valuenya mengambil dari setiap let yang dideklarasikan di atas */
+        $(".id").val(id);
+        $(".nama").val(nama);
+        $(".bahan").val(bahan);
+        $(".warna").val(warna);
+        $(".foto").val(foto);
+        $(".harga").val(harga);
+        $(".deskripsi").val(deskripsi);
+
+        // Menampilkan gambar pratinjau di dalam modal
+        if (foto) {
+          $(".foto-preview").attr("src", foto); // Mengatur atribut src dari elemen img
+          $(".foto-preview").show(); // Menampilkan elemen img pratinjau
+        } else {
+          // Jika tidak ada foto, sembunyikan elemen img pratinjau
+          $(".foto-preview").hide();
+        }
+      });
+      $("#edit-modal form").submit(function(event) {
+      // Mengambil nilai input
+      let id = $(".id").val();
+      let nama = $(".nama").val();
+      let bahan = $(".bahan").val();
+      let warna = $(".warna").val();
+      let fotoInput = $(".foto")[0].files[0]; // Mengambil file foto yang diunggah
+      let harga = $(".harga").val();
+      let deskripsi = $(".deskripsi").val();
+
+      // Jika tidak ada foto yang diunggah, gunakan foto lama
+      if (!fotoInput) {
+        // Mengatur input foto untuk mengirim foto lama
+        $("<input>").attr({
+          type: "hidden",
+          name: "foto",
+          value: foto
+        }).appendTo($(this)); // Menambahkan input foto ke dalam form
+      }
+
+      // Jika ada foto yang diunggah, biarkan form berperilaku standar (mengirim foto baru)
+    });
+    </script>
+  </body>
+</html>

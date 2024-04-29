@@ -1,0 +1,102 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/product?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Nama Product
+            </label>
+            <input
+              type="text"
+              class="form-control nama"
+              name="nama"
+              nama="Enter Nama"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Bahan</label>
+            <input
+              type="text"
+              class="form-control bahan"
+              name="bahan"
+              nama="Enter bahan"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Warna</label>
+            <input
+              type="text"
+              class="form-control warna"
+              name="warna"
+              nama="Enter warna"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="image">
+              <p>Foto Sebelumnya:</p>
+              <p><img class="foto-preview" src="" width="200px" height="auto"></p>
+              Foto
+            </label>
+            <input
+              type="file"
+              class="form-control-file"
+              name="image"
+              nama="Enter foto"
+              accept=".jpg, .jpeg, .png"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Harga</label>
+            <input
+              type="number"
+              class="form-control harga"
+              name="harga"
+              nama="Enter harga"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Deskripsi</label>
+            <textarea
+              type="text"
+              class="form-control deskripsi"
+              name="deskripsi"
+              nama="Enter deskripsi"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" class="id" name="id" />
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
